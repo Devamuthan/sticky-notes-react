@@ -1,0 +1,49 @@
+.note{
+    height: 300px;
+    width: 450px;
+    background: yellow;
+}
+
+.note.view{
+    display: grid;
+    grid-template-rows: 25px 170px 40px 40px 25px;
+    grid-template-columns: 25px 400px 25px;
+    grid-template-areas: ". . close" ". message ." ". time ." ". add ." ". . .";
+}
+
+.note.view .close{
+    grid-area: close;
+}
+
+.note.view .close svg{
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.note.view .close svg:hover{
+    transform: scale(1.1);
+}
+
+.note.view .message{
+    grid-area: message;
+}
+
+.note.view .time{
+    grid-area: time;
+}
+
+.note.view .edit{
+    grid-area: add;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.note.view .edit svg{
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.note.view .edit svg:hover {
+    transform: scale(1.2);
+}
