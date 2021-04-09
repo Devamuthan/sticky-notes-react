@@ -1,49 +1,121 @@
-.note{
-    height: 300px;
-    width: 450px;
-    background: yellow;
-}
-
-.note.view{
-    display: grid;
-    grid-template-rows: 25px 170px 40px 40px 25px;
-    grid-template-columns: 25px 400px 25px;
-    grid-template-areas: ". . close" ". message ." ". time ." ". add ." ". . .";
-}
-
-.note.view .close{
-    grid-area: close;
-}
-
-.note.view .close svg{
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.note.view .close svg:hover{
-    transform: scale(1.1);
-}
-
-.note.view .message{
-    grid-area: message;
-}
-
-.note.view .time{
-    grid-area: time;
-}
-
-.note.view .edit{
-    grid-area: add;
+.note-container {
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-.note.view .edit svg{
+.note {
+    height: 275px;
+    width: 375px;
+    background: white;
+    margin: 5px;
+    border: 2px solid #2b2b2b;
+}
+
+.note.view {
+    display: grid;
+    grid-template-rows: 10px 175px 40px 40px 10px;
+    grid-template-columns: 10px 355px 10px;
+    grid-template-areas: ". . close" ". message ." ". time ." ". add ." ". . .";
+}
+
+.note.view .close {
+    grid-area: close;
+    position: relative;
+    transform: scale(2.5);
+    right: 10px;
+    top: 7px;
+}
+
+.note.view .close svg {
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.note.view .close svg:hover {
+    transform: scale(1.1);
+}
+
+.note.view .message {
+    grid-area: message;
+    text-align: justify;
+    padding: 5px;
+    border: none;
+    outline: none;
+}
+
+.note.view .time {
+    grid-area: time;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.note.view .edit {
+    grid-area: add;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    align-items: center;
+}
+
+.note.view .edit svg {
     cursor: pointer;
     transition: all 0.3s ease;
 }
 
 .note.view .edit svg:hover {
     transform: scale(1.2);
+}
+
+.note.edit {
+    display: grid;
+    grid-template-columns: 10px 355px 10px;
+    grid-template-rows: 10px 215px 40px 10px;
+    grid-template-areas: ". . ." ". editmessage ." ". savebutton ." ". . .";
+}
+
+.note.edit .message-container {
+    grid-area: editmessage;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px;
+}
+
+.note.edit .message-container .message {
+    height: 100%;
+    width: 100%;
+    text-align: justify;
+    border: 1px solid #2b2b2b;
+    color: #2b2b2b;
+    outline: none;
+    padding: 7px;
+}
+
+.note.edit .save-container {
+    grid-area: savebutton;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 2px;
+}
+
+.note.edit .save-container .save {
+    width: 150px;
+    height: 100%;
+    background: white;
+    border: 1px solid #2b2b2b;
+    color: #2b2b2b;
+    outline: none;
+    font-size: 1.1em;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.note.edit .save-container .save:hover {
+    background: #2b2b2b;
+    color: white;
+    width: 170px;
 }

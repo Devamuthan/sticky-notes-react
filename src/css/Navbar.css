@@ -1,0 +1,43 @@
+.navbar{
+    height: 100%;
+    width: 100%;
+    display: grid;
+    grid-template-rows: 1fr;
+    grid-template-columns: 1fr 2fr 1fr;
+}
+
+.navbar .active-notes,
+.navbar .title,
+.navbar .add-note{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.navbar .active-notes{
+    font-size: 1.5em;
+}
+
+.navbar .title{
+    font-size: 3em;
+    font-weight: 600;
+}
+
+.navbar .add-note button{
+    height: 35px;
+    width: 200px;
+    border: 2px solid #2b2b2b;
+    outline: none;
+    color: #2b2b2b;
+    font-size: 1.4em;
+    background: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.navbar .add-note button:hover{
+    background: #2b2b2b;
+    color: white;
+    width: 220px;
+    height: 40px;
+}

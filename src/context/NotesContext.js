@@ -7,16 +7,31 @@ export const NotesConsumer = MyNotesContext.Consumer
 export function NotesProvider (props) {
     const [notes, setNotes] = useState([])
 
-    const updateNotes = (note) => {
-        setNotes({
-            ...notes , note
-        })
+    const addNotes = (note) => {
+        setNotes([
+            ...notes, note
+        ])
+    }
+
+    const removeNotes = (id) => {
+        let tempNotes = notes
+        console.log(notes)
+        console.log(notes.length)
+        for(let i=0; i< tempNotes.length; i++){
+            if(tempNotes[i].id === id){
+                tempNotes.splice(i,1)
+                break
+            }
+        }
+        setNotes(tempNotes)
+        console.log(notes)
     }
 
     return <MyNotesContext.Provider value={ {
         notes,
         setNotes,
-        updateNotes
+        addNotes,
+        removeNotes
     } }>
         { props.children }
     </MyNotesContext.Provider>
