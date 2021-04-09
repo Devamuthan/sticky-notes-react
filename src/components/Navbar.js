@@ -2,13 +2,14 @@ import React from 'react'
 import NotesContext, { NotesConsumer } from '../context/NotesContext'
 import '../css/Navbar.css'
 import updateResize from '../funtionalities/UpdateResize'
+import { ReactComponent as Menu } from '../assets/menu.svg'
 
 class Navbar extends React.Component {
     static contextType = NotesContext
 
     constructor (props) {
-        super(props);
-        this.state ={
+        super(props)
+        this.state = {
             navbar: 'not-clicked'
         }
     }
@@ -24,6 +25,18 @@ class Navbar extends React.Component {
         ])
 
         updateResize(this.context.notes.length)
+    }
+
+    handleMenu = () => {
+        if (this.state.navbar === 'not-clicked') {
+            this.setState({
+                navbar: 'clicked'
+            })
+        } else {
+            this.setState({
+                navbar: 'not-clicked'
+            })
+        }
     }
 
     render () {
@@ -42,14 +55,22 @@ class Navbar extends React.Component {
                                         <button onClick={ this.handleAddNote }>Add Note</button>
                                     </div>
                                 </div>
-                                <div className={ 'navbar-mobile' }>
-                                    <div className={ 'active-notes' }>
+                                <div className={ 'navbar-mobile ' + this.state.navbar }>
+                                    <div className={ 'title' }>
+                                        <div className={ 'title-text' }>
+                                            STICKY NOTES
+                                        </div>
+                                        <div className={ 'menu' }>
+                                            <Menu onClick={ this.handleMenu } />
+                                        </div>
+                                    </div>
+                                    <div className={ 'active-notes ' + this.state.navbar }>
                                         Active Notes: { props.notes.length }
                                     </div>
-                                    <div className={ 'title' }>STICKY NOTES</div>
-                                    <div className={ 'add-note' }>
+                                    <div className={ 'add-note ' + this.state.navbar }>
                                         <button onClick={ this.handleAddNote }>Add Note</button>
                                     </div>
+
                                 </div>
                             </div>
 
