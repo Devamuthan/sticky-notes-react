@@ -7,4 +7,4 @@ The application is not yet complete. The currently working features are:
 2. Remove a note from the board
 3. View the currently active notes
 
-To view the live website, visit:
+To view the live website, visit: https://sticky-notes-react-app.web.app/
