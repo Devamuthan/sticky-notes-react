@@ -5,6 +5,7 @@ import NotesContext, { NotesConsumer, NotesProvider } from '../context/NotesCont
 import Navbar from './Navbar'
 import updateResize from '../funtionalities/UpdateResize'
 
+//
 class Board extends React.Component {
     render () {
         return (
@@ -54,7 +55,6 @@ class RenderNote extends React.Component {
             <NotesConsumer>
                 {
                     props => {
-                        console.log('RenderNote')
                         if (props.notes.length === 0) {
                             return this.renderEmptyBoard()
                         } else {

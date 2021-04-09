@@ -1,4 +1,4 @@
-.navbar{
+.navbar .navbar-desktop{
     height: 100%;
     width: 100%;
     display: grid;
@@ -6,24 +6,24 @@
     grid-template-columns: 1fr 2fr 1fr;
 }
 
-.navbar .active-notes,
-.navbar .title,
-.navbar .add-note{
+.navbar .navbar-desktop .active-notes,
+.navbar .navbar-desktop .title,
+.navbar .navbar-desktop .add-note{
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-.navbar .active-notes{
+.navbar .navbar-desktop .active-notes{
     font-size: 1.5em;
 }
 
-.navbar .title{
+.navbar .navbar-desktop .title{
     font-size: 3em;
     font-weight: 600;
 }
 
-.navbar .add-note button{
+.navbar .navbar-desktop .add-note button{
     height: 35px;
     width: 200px;
     border: 2px solid #2b2b2b;
@@ -35,7 +35,7 @@
     transition: all 0.3s ease;
 }
 
-.navbar .add-note button:hover{
+.navbar .navbar-desktop .add-note button:hover{
     background: #2b2b2b;
     color: white;
     width: 220px;

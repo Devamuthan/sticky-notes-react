@@ -6,13 +6,23 @@ import updateResize from '../funtionalities/UpdateResize'
 class Navbar extends React.Component {
     static contextType = NotesContext
 
-    handleAddNote = () => {
+    constructor (props) {
+        super(props);
+        this.state ={
+            navbar: 'not-clicked'
+        }
+    }
 
-        this.context.addNotes({
+    handleAddNote = () => {
+        let note = {
             id: Date.now(),
             note: '',
             endTime: ''
-        })
+        }
+        this.context.setNotes([
+            ...this.context.notes, note
+        ])
+
         updateResize(this.context.notes.length)
     }
 
@@ -23,14 +33,26 @@ class Navbar extends React.Component {
                     props => {
                         return (
                             <div className={ 'navbar' }>
-                                <div className={ 'active-notes' }>
-                                    Active Notes: { props.notes.length }
+                                <div className={ 'navbar-desktop' }>
+                                    <div className={ 'active-notes' }>
+                                        Active Notes: { props.notes.length }
+                                    </div>
+                                    <div className={ 'title' }>STICKY NOTES</div>
+                                    <div className={ 'add-note' }>
+                                        <button onClick={ this.handleAddNote }>Add Note</button>
+                                    </div>
                                 </div>
-                                <div className={ 'title' }>STICKY NOTES</div>
-                                <div className={ 'add-note' }>
-                                    <button onClick={ this.handleAddNote }>Add Note</button>
+                                <div className={ 'navbar-mobile' }>
+                                    <div className={ 'active-notes' }>
+                                        Active Notes: { props.notes.length }
+                                    </div>
+                                    <div className={ 'title' }>STICKY NOTES</div>
+                                    <div className={ 'add-note' }>
+                                        <button onClick={ this.handleAddNote }>Add Note</button>
+                                    </div>
                                 </div>
                             </div>
+
                         )
                     }
                 }
