@@ -4,7 +4,8 @@ It can remind you when the event is about to end when the client is online.
 
 The application is not yet complete. The currently working features are:
 1. Add a note to the board
-2. Remove a note from the board
-3. View the currently active notes
+2. Edit any note on the board.
+3. Remove a note from the board
+4. View the currently active notes
 
 To view the live website, visit: https://sticky-notes-react-app.web.app/
