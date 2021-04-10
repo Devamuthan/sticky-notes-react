@@ -24,7 +24,7 @@ class RenderNote extends React.Component {
     static contextType = NotesContext
 
     // Defining component did mount function
-    async componentDidMount () {
+    componentDidMount () {
         // Referencing the root of the DB
         let notesRef = firebase.database().ref('/')
         //  Getting all the values from the reference
@@ -38,6 +38,47 @@ class RenderNote extends React.Component {
                 await this.context.setNotes(notes)
             }
         })
+        // Changing the reference to the notes document
+        notesRef = firebase.database().ref('notes')
+        // Action listener invoked when an child element(note) is added to the notes document in firebase
+        notesRef.on('child_added', data => {
+            // Checking id the component is loaded or not
+            if(this.context.loaded){
+                // If the component is already loaded and a item is added, then append it to the notes context
+                this.context.setNotes([
+                    ...this.context.notes, data.val()
+                ])
+            }else{
+                // This section means that the component is now loading so that the loaded state is set to true
+                this.context.setLoaded(true)
+            }
+        })
+
+        // Action listener invoked when an note is removed from notes document in firebase
+        notesRef.on('child_removed', data => {
+            // Filtering out the deleted note
+            let notes = this.context.notes.filter(note => {
+                return note.id !== data.val().id
+            })
+            // Updating the remaining note to the context
+            this.context.setNotes(notes)
+        })
+
+        // Action listener invoked when an note is changed or updated in notes document in firebase
+        notesRef.on('child_changed', data => {
+            // Finding the note that is changed
+            let notes  = this.context.notes.map( note => {
+                if(note.id === data.val().id){
+                    // If the note is found, the message is updated
+                    note.note = data.val().note
+                }
+                // Returning the note after each iteration
+                return note
+            })
+            // Updating the notes context
+            this.context.setNotes(notes)
+        })
+
         //this.context.setNotes(await database.getNotes)
         // Adding event listener to change the layout whenever the window width is changed
         window.addEventListener('resize', () => {
@@ -47,6 +88,8 @@ class RenderNote extends React.Component {
         window.setTimeout(() => {
             updateResize(this.context.notes.length)
         }, 1500)
+
+
     }
 
     // RenderNotes template
