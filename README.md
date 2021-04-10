@@ -8,5 +8,6 @@ The application is not yet complete. The currently working features are:
 3. Remove a note from the board.
 4. View the currently active notes.
 5. Any of the operation that is performed above will also be stored in firestore.
+6. Live updation of data, now the operation performed on a note from one client can be viewed by all the clients without reloading
 
 To view the live website, visit: https://sticky-notes-react-app.web.app/
