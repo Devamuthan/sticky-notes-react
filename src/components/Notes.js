@@ -3,6 +3,7 @@ import '../css/Note.css'
 import { ReactComponent as Edit } from '../assets/edit.svg'
 import { ReactComponent as Close } from '../assets/close.svg'
 import NotesContext from '../context/NotesContext'
+import firebase from '../utils/FirebaseUtils'
 
 // Notes Component
 class Notes extends React.Component {
@@ -22,6 +23,17 @@ class Notes extends React.Component {
 
     // Function to handle the Closing action of the Note Component
     handleClose = () => {
+        // Referencing the notes document from the database
+        let notesRef = firebase.database().ref('notes')
+        // Selecting the current note from the database
+        notesRef.orderByChild('id').equalTo(this.props.id)
+            .once('value').then( snapshot => {
+                // Getting the key of the document
+                let key = Object.keys(snapshot.val())[0]
+                // Removing the Document
+                notesRef.child(key).remove()
+        })
+
         // Filtering through the notes and getting the array of notes without the deleted note component
         let tempNotes = this.context.notes.filter(note => {
             return note.id !== this.props.id
@@ -39,11 +51,26 @@ class Notes extends React.Component {
     }
 
     // Function to handle the click of Save button when editing
-    handleSave = () => {
+    handleSave = async() => {
+        // Referencing the notes document
+        let notesRef = firebase.database().ref('notes')
+        // Getting the current note from the database
+        await notesRef.orderByChild('id').equalTo(this.props.id)
+            .once('value').then( snapshot => {
+                // Getting the key of the document from database
+                let key = Object.keys(snapshot.val())[0]
+                // Updating the note to the database
+                notesRef.child(key).update({note: this.refs.message.value})
+            })
+
+
+        // Searching through all the notes available and saving all the notes
         let notes  = this.context.notes.map( note => {
             if(note.id === this.props.id){
+                // If the note is found, the message is updated
                 note.note = this.refs.message.value
             }
+            // Returning the note after each iteration
             return note
         })
 
@@ -52,6 +79,7 @@ class Notes extends React.Component {
             editing: false
         })
 
+        // Updating the context
         this.context.setNotes(notes)
     }
 
@@ -82,7 +110,7 @@ class Notes extends React.Component {
             <div className={ 'note-container' }>
                 <div className={ 'note edit' }>
                     <div className={ 'message-container' }>
-                        <textarea className={ 'message' } ref="message" />
+                        <textarea className={ 'message' } ref="message" defaultValue={this.props.note} />
                     </div>
                     <div className={ 'save-container' }>
                         <button className={ 'save' } onClick={ this.handleSave }>
@@ -106,5 +134,5 @@ class Notes extends React.Component {
     }
 }
 
-// Exporting the Notes component as default
+// Exporting the Notes component
 export default Notes
