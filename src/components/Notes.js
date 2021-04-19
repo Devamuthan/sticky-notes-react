@@ -17,7 +17,75 @@ class Notes extends React.Component {
         // Defining the state
         // editing is the state to denote the status of the note component - editing == true => Editing or editing == false => Viewing
         this.state = {
-            editing: false
+            editing: false,
+            hour: 0,
+            min: 0,
+            sec: 0
+        }
+    }
+
+    hourInc = () => {
+        if (this.state.hour !== 24) {
+            this.setState({
+                hour: this.state.hour + 1
+            })
+        }
+    }
+
+    hourDec = () => {
+        if (this.state.hour !== 0) {
+            this.setState({
+                hour: this.state.hour - 1
+            })
+        }
+    }
+
+    minInc = () => {
+        if (this.state.min < 60) {
+            this.setState({
+                min: this.state.min + 1
+            })
+        } else {
+            this.setState({
+                min: 0
+            })
+        }
+    }
+
+    minDec = () => {
+        if (this.state.min !== 0) {
+            this.setState({
+                min: this.state.min - 1
+            })
+        } else {
+            this.setState({
+                min: 59
+            })
+        }
+    }
+
+    secInc = () => {
+        if (this.state.sec !== 60) {
+            this.setState({
+                sec: this.state.sec + 1
+            })
+        } else {
+            this.setState({
+                sec: 0
+            })
+        }
+        console.log('sec:'+this.state.sec)
+    }
+
+    secDec = () => {
+        if (this.state.sec !== 0) {
+            this.setState({
+                sec: this.state.sec - 1
+            })
+        } else {
+            this.setState({
+                sec: 59
+            })
         }
     }
 
@@ -27,11 +95,11 @@ class Notes extends React.Component {
         let notesRef = firebase.database().ref('notes')
         // Selecting the current note from the database
         notesRef.orderByChild('id').equalTo(this.props.id)
-            .once('value').then( snapshot => {
-                // Getting the key of the document
-                let key = Object.keys(snapshot.val())[0]
-                // Removing the Document
-                notesRef.child(key).remove()
+            .once('value').then(snapshot => {
+            // Getting the key of the document
+            let key = Object.keys(snapshot.val())[ 0 ]
+            // Removing the Document
+            notesRef.child(key).remove()
         })
 
         // Filtering through the notes and getting the array of notes without the deleted note component
@@ -51,22 +119,21 @@ class Notes extends React.Component {
     }
 
     // Function to handle the click of Save button when editing
-    handleSave = async() => {
+    handleSave = async () => {
         // Referencing the notes document
         let notesRef = firebase.database().ref('notes')
         // Getting the current note from the database
         await notesRef.orderByChild('id').equalTo(this.props.id)
-            .once('value').then( snapshot => {
+            .once('value').then(snapshot => {
                 // Getting the key of the document from database
-                let key = Object.keys(snapshot.val())[0]
+                let key = Object.keys(snapshot.val())[ 0 ]
                 // Updating the note to the database
-                notesRef.child(key).update({note: this.refs.message.value})
+                notesRef.child(key).update({ note: this.refs.message.value })
             })
 
-
         // Searching through all the notes available and saving all the notes
-        let notes  = this.context.notes.map( note => {
-            if(note.id === this.props.id){
+        let notes = this.context.notes.map(note => {
+            if (note.id === this.props.id) {
                 // If the note is found, the message is updated
                 note.note = this.refs.message.value
             }
@@ -110,7 +177,27 @@ class Notes extends React.Component {
             <div className={ 'note-container' }>
                 <div className={ 'note edit' }>
                     <div className={ 'message-container' }>
-                        <textarea className={ 'message' } ref="message" defaultValue={this.props.note} />
+                        <textarea className={ 'message' } ref="message" defaultValue={ this.props.note } />
+                    </div>
+                    <div className={ 'set-time' }>
+                        <div className={ 'text' }>Set Time:</div>
+                        <div className={ 'time-slider' }>
+                            <div className={ 'hour-slider' }>
+                                <div className={ 'hour' }>{ this.state.hour + 'h' }</div>
+                                <div className={ 'inc' } onClick={ this.hourInc }>+</div>
+                                <div className={ 'dec' } onClick={ this.hourDec }>-</div>
+                            </div>
+                            <div className={ 'min-slider' }>
+                                <div className={ 'min' }>{ this.state.min + 'm' }</div>
+                                <div className={ 'inc' } onClick={ this.minInc }>+</div>
+                                <div className={ 'dec' } onClick={ this.minDec }>-</div>
+                            </div>
+                            <div className={ 'sec-slider' }>
+                                <div className={ 'sec' }>{ this.state.sec + 's' }</div>
+                                <div className={ 'inc' } onClick={ this.secInc }>+</div>
+                                <div className={ 'dec' } onClick={ this.secDec }>-</div>
+                            </div>
+                        </div>
                     </div>
                     <div className={ 'save-container' }>
                         <button className={ 'save' } onClick={ this.handleSave }>

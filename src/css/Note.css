@@ -72,8 +72,8 @@
 .note.edit {
     display: grid;
     grid-template-columns: 10px 355px 10px;
-    grid-template-rows: 10px 215px 40px 10px;
-    grid-template-areas: ". . ." ". editmessage ." ". savebutton ." ". . .";
+    grid-template-rows: 10px 175px 40px 40px 10px;
+    grid-template-areas: ". . ." ". editmessage ." ". settime ." ". savebutton ." ". . .";
 }
 
 .note.edit .message-container {
@@ -92,6 +92,95 @@
     color: #2b2b2b;
     outline: none;
     padding: 7px;
+}
+
+.note.edit .set-time{
+    grid-area: settime;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    height: 100%;
+    width: 100%;
+}
+
+.note.edit .set-time .text {
+    height: 100%;
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.note.edit .set-time .time-slider {
+    height: 100%;
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.note.edit .set-time .time-slider .hour-slider,
+.note.edit .set-time .time-slider .min-slider,
+.note.edit .set-time .time-slider .sec-slider{
+    display: grid;
+    height: 35px;
+    width: 50px;
+    border: 1px solid #2b2b2b;
+    outline: none;
+    grid-template-columns: 2fr 1fr;
+    grid-template-rows: 2fr 1fr;
+    grid-template-areas: "time-data time-inc" "time-data time-dec";
+}
+
+.note.edit .set-time .time-slider .hour-slider .hour,
+.note.edit .set-time .time-slider .min-slider .min,
+.note.edit .set-time .time-slider .sec-slider .sec{
+    grid-area: time-data;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 33px;
+    width: 32px;
+    border-right: 1px solid #2b2b2b;
+}
+
+.note.edit .set-time .time-slider .hour-slider .inc,
+.note.edit .set-time .time-slider .min-slider .inc,
+.note.edit .set-time .time-slider .sec-slider .inc{
+    grid-area: time-inc;
+
+    height: 18px;
+    border-bottom: 1px solid #2b2b2b;
+}
+
+.note.edit .set-time .time-slider .hour-slider .dec,
+.note.edit .set-time .time-slider .min-slider .dec,
+.note.edit .set-time .time-slider .sec-slider .dec{
+    grid-area: time-dec;
+    height: 15px;
+}
+
+.note.edit .set-time .time-slider .hour-slider .inc,
+.note.edit .set-time .time-slider .min-slider .inc,
+.note.edit .set-time .time-slider .sec-slider .inc,
+.note.edit .set-time .time-slider .hour-slider .dec,
+.note.edit .set-time .time-slider .min-slider .dec,
+.note.edit .set-time .time-slider .sec-slider .dec{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.note.edit .set-time .time-slider .hour-slider .inc:hover,
+.note.edit .set-time .time-slider .min-slider .inc:hover,
+.note.edit .set-time .time-slider .sec-slider .inc:hover,
+.note.edit .set-time .time-slider .hour-slider .dec:hover,
+.note.edit .set-time .time-slider .min-slider .dec:hover,
+.note.edit .set-time .time-slider .sec-slider .dec:hover{
+    background: #2b2b2b;
+    color: white;
+    font-weight: 600;
 }
 
 .note.edit .save-container {
